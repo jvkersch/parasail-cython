@@ -1,0 +1,5 @@
+__pycache__
+
+build/
+parasail_cython.egg-info/
+cyparasail/*.so
