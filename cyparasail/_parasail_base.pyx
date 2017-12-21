@@ -3,15 +3,7 @@ cimport _parasail as _lib
 
 import numpy as np
 
-def _B(s):
-    return s.encode('latin-1')
-
-def _D(b):
-    return b.decode('latin-1')
-
-
-def isstr(s):  # python 3 only
-    return isinstance(s, str)
+from .util import B, D, isstr
 
 
 def parasail_version():
@@ -26,7 +18,6 @@ cdef class PointerWrapper:
 
 
 cdef class Matrix:
-    cdef _lib.parasail_matrix* pointer
 
     def __dealloc__(self):
         if self.pointer != NULL and self.pointer.user_matrix:
@@ -37,7 +28,7 @@ cdef class Matrix:
         cdef _lib.parasail_matrix* pointer = NULL
 
         if isstr(pointer_or_string):
-            pointer = _lib.parasail_matrix_lookup(_B(pointer_or_string))
+            pointer = _lib.parasail_matrix_lookup(B(pointer_or_string))
             if pointer == NULL:
                 raise NotImplementedError()
         elif isinstance(pointer_or_string, PointerWrapper):
@@ -48,7 +39,7 @@ cdef class Matrix:
 
     @property
     def name(self):
-        return _D(self.pointer.name)
+        return D(self.pointer.name)
 
     @property
     def matrix(self):
@@ -108,4 +99,4 @@ cdef class Matrix:
 
 
 def matrix_create(alphabet, match, mismatch):
-    return Matrix(_lib.parasail_matrix_create(_B(alphabet), match, mismatch))
+    return Matrix(_lib.parasail_matrix_create(B(alphabet), match, mismatch))

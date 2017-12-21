@@ -1,3 +1,6 @@
+cimport numpy as cnp
+
+
 cdef extern from "parasail.h":
     struct parasail_result:
         pass
@@ -20,17 +23,25 @@ cdef extern from "parasail.h":
     # Deallocate substitution matrix.
     void parasail_matrix_free(parasail_matrix *matrix)
 
-    # Copy any matrix into wriㅠteable matrix.
+    # Copy any matrix into writeable matrix.
     parasail_matrix* parasail_matrix_copy(const parasail_matrix *original)
 
     # Modify a user matrix.
     void parasail_matrix_set_value(parasail_matrix *matrix, int row, int col, int value)
 
     struct parasail_result_ssw:
-        pass
+        cnp.uint16_t score1
+        cnp.int32_t ref_begin1
+        cnp.int32_t ref_end1
+        cnp.int32_t read_begin1
+        cnp.int32_t read_end1
+        cnp.uint32_t *cigar
+        cnp.int32_t cigarLen
     
     parasail_result_ssw* parasail_ssw(
-        const char * const restrict s1, const int s1Len,
-        const char * const restrict s2, const int s2Len,
+        const char * const s1, const int s1Len,
+        const char * const s2, const int s2Len,
         const int open, const int gap,
         const parasail_matrix* matrix)
+
+    void parasail_result_ssw_free(parasail_result_ssw *result)

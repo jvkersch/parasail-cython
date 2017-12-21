@@ -1,3 +1,5 @@
+# Matrix classes
+
 from ._parasail_base import parasail_version, Matrix  # noqa
 
 # TODO Lazily insert matrices into namespace.
@@ -15,3 +17,7 @@ _score_matrix_names = [
 ]
 globals().update({name: Matrix(name) for name in _score_matrix_names})
 del _score_matrix_names
+
+
+# SSW
+from ._parasail_ssw import ssw, SSWResult  # noqa
