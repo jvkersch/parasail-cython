@@ -17,6 +17,9 @@ cdef extern from "parasail.h":
     # Run-time API version detection
     void parasail_version(int *major, int *minor, int *patch)
 
+    # Deallocate result.
+    void parasail_result_free(parasail_result *result)
+
     # Lookup substitution matrix by name.
     parasail_matrix* parasail_matrix_lookup(const char *matrixname)
 
