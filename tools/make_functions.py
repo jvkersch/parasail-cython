@@ -374,13 +374,14 @@ SIGNATURE = """\
 CYTHON_IMPLEMENTATION = """\
 def {name}(s1, s2, open_, extend, matrix):
     cdef parasail_result *result
-    cdef Result wrapped_result = Result()
+    cdef Result wrapped_result
 
     result = _c_{name}(
         B(s1), len(s1), B(s2), len(s2), open_, extend,
         (<Matrix>matrix).pointer
     )
     if result != NULL:
+        wrapped_result = Result(len(s1), len(s2))
         wrapped_result.pointer = result
         return wrapped_result
 
