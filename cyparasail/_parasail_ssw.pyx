@@ -8,7 +8,6 @@ from _parasail_base cimport Matrix
 from .util import B
 
 
-
 cdef class SSWResult:
     cdef _lib.parasail_result_ssw *pointer
 

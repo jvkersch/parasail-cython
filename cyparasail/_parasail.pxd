@@ -119,12 +119,60 @@ cdef extern from "parasail.h":
 
     void parasail_result_ssw_free(parasail_result_ssw *result)
 
+    struct parasail_cigar_:
+        cnp.uint32_t *seq
+        int len
+        int beg_query
+        int beg_ref
+
+    # allocate and return the cigar for the given alignment
+    parasail_cigar_* parasail_result_get_cigar(
+        parasail_result *result,
+        const char *seqA,
+        int lena,
+        const char *seqB,
+        int lenb,
+        const parasail_matrix *matrix)
+
+    # Produce CIGAR 32-bit unsigned integer from CIGAR operation and CIGAR length.
+    #
+    # @param[in] length    length of CIGAR
+    # @param[in] op_letter CIGAR operation character ('M', 'I', etc)
+    # @return              encoded CIGAR operation and length
+    #cnp.uint32_t parasail_cigar_encode(cnp.uint32_t length, char op_letter)
+
+
+    # Convert CIGAR array into a character array.
+    #
+    # @param[in] cigar   32-bit unsigned integers, representing encoded
+    #                    CIGAR operations and lengths
+    # @return            CIGAR string, e.g., '3=2I2=1X4D14='
+    char* parasail_cigar_decode(parasail_cigar_ *cigar)
+
+    # Extract CIGAR operation character from CIGAR 32-bit unsigned integer.
+    #
+    # @param[in] cigar_int   32-bit unsigned integer, representing encoded
+    #                        CIGAR operation and length
+    # @return                CIGAR operation character ('M', 'I', etc)
+    char parasail_cigar_decode_op(cnp.uint32_t cigar_int)
+
+
+    # Extract length of a CIGAR operation from CIGAR 32-bit unsigned integer.
+    #
+    # @param[in] cigar_int   32-bit unsigned integer, representing encoded
+    #                        CIGAR operation and length
+    # @return                length of CIGAR operation
+    cnp.uint32_t parasail_cigar_decode_len(cnp.uint32_t cigar_int)
+    
+    void parasail_cigar_free(parasail_cigar_ *cigar)
+    
     # The following functions help access result attributes.
     int parasail_result_is_saturated(const parasail_result * const result)
     int parasail_result_is_stats(const parasail_result * const result)
     int parasail_result_is_stats_table(const parasail_result * const result)
     int parasail_result_is_table(const parasail_result * const result)
     int parasail_result_is_rowcol(const parasail_result * const result)
+    int parasail_result_is_trace(const parasail_result * const result)
 
     int parasail_result_get_matches(const parasail_result * const result)
     int parasail_result_get_similar(const parasail_result * const result)

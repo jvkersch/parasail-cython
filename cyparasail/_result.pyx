@@ -1,4 +1,5 @@
 cimport _parasail as _lib
+from _cigar cimport Cigar
 
 import numpy as np
 
@@ -14,11 +15,14 @@ cdef _make_2d_array(int* data, size_t rows, size_t cols):
 
 cdef class Result:
 
-    def __init__(self,
-                 size_t len_query, size_t len_ref):
+    def __init__(self, char * query, size_t len_query, char * ref, size_t len_ref,
+                 matrix=None):
 
         self.len_query = len_query
         self.len_ref = len_ref
+        self.query = query
+        self.ref = ref
+        self.matrix = NULL  # matrix
 
     def __dealloc__(self):
         if self.pointer != NULL:
@@ -167,3 +171,14 @@ cdef class Result:
             _lib.parasail_result_get_length_col(self.pointer),
             self.len_query
         )
+
+    @property
+    def cigar(self):
+        cdef Cigar c
+        if 0 == _lib.parasail_result_is_trace(self.pointer):
+            raise AttributeError("'Result' object has no traceback")
+        c = Cigar()
+        c.pointer = _lib.parasail_result_get_cigar(self.pointer, self.query,
+                                                   self.len_query, self.ref,
+                                                   self.len_ref, self.matrix)
+        return c
