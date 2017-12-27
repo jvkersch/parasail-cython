@@ -31,6 +31,10 @@ cdef extern from "parasail.h":
     # Lookup substitution matrix by name.
     parasail_matrix* parasail_matrix_lookup(const char *matrixname)
 
+    # Create simple substitution matrix.
+    parasail_matrix* parasail_matrix_create(
+        const char *alphabet, const int match, const int mismatch)
+
     # Deallocate substitution matrix.
     void parasail_matrix_free(parasail_matrix *matrix)
 

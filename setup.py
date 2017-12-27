@@ -10,10 +10,8 @@ from Cython.Build import cythonize
 import numpy
 
 
-
-
-PARASAIL_INCLUDE = "/home/jvkersch/src/parasail"
-PARASAIL_LIB = "/home/jvkersch/src/parasail/build"
+PARASAIL_INCLUDE = os.environ['PARASAIL_INCLUDE']
+PARASAIL_LIB = os.environ['PARASAIL_LIB']
 
 
 def extension(name, sources):
@@ -36,6 +34,7 @@ extensions = [
 
 setup(
     name="parasail-cython",
+    version="0.0.1",
     packages=find_packages(),
     ext_modules=cythonize(extensions),
 )

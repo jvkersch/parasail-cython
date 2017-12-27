@@ -1,0 +1,18 @@
+language: python
+
+matrix:
+  include:
+    - os: linux
+
+before_install:
+  - git clone https://github.com/jeffdaily/parasail
+  - cd parasail && mkdir build && cd build && cmake .. && make -j4 && cd ../..
+  - export PARASAIL_INCLUDE=$(readlink -f parasail)
+  - export PARASAIL_LIB=$(readlink -f parasail/build)
+  - pip install -r requirements.txt
+
+install:
+  - python setup.py develop
+
+script:
+  - python -m unittest discover -v cyparasail

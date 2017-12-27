@@ -99,4 +99,6 @@ cdef class Matrix:
 
 
 def matrix_create(alphabet, match, mismatch):
-    return Matrix(_lib.parasail_matrix_create(B(alphabet), match, mismatch))
+    cdef Matrix m = Matrix()
+    m.pointer = _lib.parasail_matrix_create(B(alphabet), match, mismatch)
+    return m
