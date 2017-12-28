@@ -377,7 +377,7 @@ def {name}(s1, s2, open_, extend, matrix):
     cdef Result wrapped_result
 
     result = _c_{name}(
-        B(s1), len(s1), B(s2), len(s2), open_, extend,
+        B(s1), <int>len(s1), B(s2), <int>len(s2), open_, extend,
         (<Matrix>matrix).pointer
     )
     if result != NULL:
