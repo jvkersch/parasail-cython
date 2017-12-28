@@ -3,19 +3,23 @@ platform:
 
 environment:
   matrix:
-   - python: "C:\Python36"
+    - PYTHON: "C:\\Python36-x64"
+      PYTHON_VERSION: "3.6.0"
+      PYTHON_ARCH: "64"
+      PIP: "C:\\Python36-x64\\Scripts\\pip"
 
 shallow_clone: true
 
 init:
+  - ps: %PYTHON% --version
   - ps: Invoke-WebRequest -Uri https://github.com/jeffdaily/parasail/releases/download/v2.0.4/parasail-2.0.4-win64-v140.zip -OutFile parasail.zip
   - ps: 7z x parasail.zip
   - set PARASAIL_LIB=parasail-2.0.4-win64-v140\\lib
   - set PARASAIL_INCLUDE=parasail-2.0.4-win64-v140\\include
 
 install:
-  - ps: pip install -r requirements.txt
-  - ps: python setup.py develop
+  - ps: %PIP% install -r requirements.txt
+  - ps: %PYTHON% setup.py develop
 
 test_script:
-  - ps: python -m unittest discover -v cyparasail
+  - ps: %PYTHON% -m unittest discover -v cyparasail
