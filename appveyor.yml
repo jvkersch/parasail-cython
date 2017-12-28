@@ -17,9 +17,9 @@ init:
   - ps: 7z x parasail.zip
   - set PARASAIL_LIB=parasail-2.0.4-win64-v140\\lib
   - set PARASAIL_INCLUDE=parasail-2.0.4-win64-v140\\include
-  - "pip install -r requirements.txt"
 
 build_script:
+  - "pip install -r requirements.txt"
   - "python setup.py develop"
 
 test_script:
