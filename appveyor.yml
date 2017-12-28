@@ -13,6 +13,7 @@ shallow_clone: true
 init:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "python --version"
+  - "cl -h"
   - ps: Invoke-WebRequest -Uri https://github.com/jeffdaily/parasail/releases/download/v2.0.4/parasail-2.0.4-win64-v140.zip -OutFile parasail.zip
   - ps: 7z x parasail.zip
   - ps: Copy-Item parasail-2.0.4-win64-v140\\bin\\parasail.dll .
