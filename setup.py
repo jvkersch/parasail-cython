@@ -12,8 +12,7 @@ import numpy
 
 PARASAIL_INCLUDE = os.environ['PARASAIL_INCLUDE']
 PARASAIL_LIB = os.environ['PARASAIL_LIB']
-print(PARASAIL_LIB)
-print(PARASAIL_INCLUDE)
+
 
 def extension(name, sources):
     return Extension(
