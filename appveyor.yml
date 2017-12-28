@@ -15,7 +15,7 @@ init:
   - "python --version"
   - ps: Invoke-WebRequest -Uri https://github.com/jeffdaily/parasail/releases/download/v2.0.4/parasail-2.0.4-win64-v140.zip -OutFile parasail.zip
   - ps: 7z x parasail.zip
-  - ps: Copy-Item parasail-2.0.4-win64-v140\\bin\\parasail.dll cyparasail
+  - ps: Copy-Item parasail-2.0.4-win64-v140\\bin\\parasail.dll .
   - set PARASAIL_LIB=parasail-2.0.4-win64-v140\\lib
   - set PARASAIL_INCLUDE=parasail-2.0.4-win64-v140\\include
 
