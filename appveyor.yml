@@ -11,15 +11,16 @@ environment:
 shallow_clone: true
 
 init:
-  - ps: %PYTHON% --version
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - "python --version"
   - ps: Invoke-WebRequest -Uri https://github.com/jeffdaily/parasail/releases/download/v2.0.4/parasail-2.0.4-win64-v140.zip -OutFile parasail.zip
   - ps: 7z x parasail.zip
   - set PARASAIL_LIB=parasail-2.0.4-win64-v140\\lib
   - set PARASAIL_INCLUDE=parasail-2.0.4-win64-v140\\include
 
 install:
-  - ps: %PIP% install -r requirements.txt
-  - ps: %PYTHON% setup.py develop
+  - "pip install -r requirements.txt"
+  - "python setup.py develop"
 
 test_script:
-  - ps: %PYTHON% -m unittest discover -v cyparasail
+  - "python -m unittest discover -v cyparasail"
