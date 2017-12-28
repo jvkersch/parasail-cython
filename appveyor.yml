@@ -15,6 +15,8 @@ init:
   - ps: Copy-Item parasail-2.0.4-win64-v140\\bin\\parasail.dll .
   - set PARASAIL_LIB=parasail-2.0.4-win64-v140\\lib
   - set PARASAIL_INCLUDE=parasail-2.0.4-win64-v140\\include
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 
 build_script:
   - "pip install -r requirements.txt"
