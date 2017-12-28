@@ -1,4 +1,5 @@
 import os
+import sys
 
 from setuptools import find_packages
 
@@ -13,15 +14,24 @@ import numpy
 PARASAIL_INCLUDE = os.environ['PARASAIL_INCLUDE']
 PARASAIL_LIB = os.environ['PARASAIL_LIB']
 
+if sys.platform == "win32":
+    RUNTIME_LIBRARY_DIRS = []
+    EXTRA_LINK_ARGS = []
+else:
+    # assume posix
+    RUNTIME_LIBRARY_DIRS = [PARASAIL_LIB]
+    EXTRA_LINK_ARGS = ["-Wl,-rpath,{}".format(PARASAIL_LIB)]
+
 
 def extension(name, sources):
     return Extension(
         name, sources,
         include_dirs=[PARASAIL_INCLUDE, numpy.get_include()],
         library_dirs=[PARASAIL_LIB],
-        extra_link_args=["-Wl,-rpath,{}".format(PARASAIL_LIB)],
-        runtime_library_dirs=[PARASAIL_LIB],
-        libraries=['parasail'])
+        extra_link_args=EXTRA_LINK_ARGS,
+        runtime_library_dirs=RUNTIME_LIBRARY_DIRS,
+        libraries=['parasail']
+    )
 
 
 extensions = [
