@@ -3,7 +3,7 @@ platform:
 
 environment:
   matrix:
-   - python: "C:\Python36-x64"
+   - python: "C:\Python36"
 
 shallow_clone: true
 
