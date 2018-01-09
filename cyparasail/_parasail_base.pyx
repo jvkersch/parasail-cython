@@ -3,18 +3,13 @@ cimport _parasail as _lib
 
 import numpy as np
 
-from .util import B, D, isstr
+from .util import B, D
 
 
 def parasail_version():
     cdef int major, minor, patch
     _lib.parasail_version(&major, &minor, &patch)
     return (major, minor, patch)
-
-
-# TODO can we get by with classmethod?
-cdef class PointerWrapper:
-    cdef _lib.parasail_matrix* pointer
 
 
 cdef class Matrix:
@@ -24,17 +19,14 @@ cdef class Matrix:
             _lib.parasail_matrix_free(self.pointer)
         self.pointer = NULL
 
-    def __cinit__(self, pointer_or_string):  # can we tighten this to str only?
+    def __cinit__(self, str name=''):
         cdef _lib.parasail_matrix* pointer = NULL
 
-        if isstr(pointer_or_string):
-            pointer = _lib.parasail_matrix_lookup(B(pointer_or_string))
+        if len(name) > 0:
+            pointer = _lib.parasail_matrix_lookup(B(name))
             if pointer == NULL:
                 raise NotImplementedError()
-        elif isinstance(pointer_or_string, PointerWrapper):
-            pointer = (<PointerWrapper>pointer_or_string).pointer
-        else:
-            raise TypeError("Invalid input type {!r}".format(type(pointer_or_string)))
+
         self.pointer = pointer
 
     @property
@@ -64,9 +56,9 @@ cdef class Matrix:
         _lib.parasail_matrix_set_value(self.pointer, row, col, value)
 
     def copy(self):
-        cdef PointerWrapper wrap = PointerWrapper()
-        wrap.pointer = _lib.parasail_matrix_copy(self.pointer)
-        return Matrix(wrap)
+        cdef Matrix matrix_copy = Matrix()
+        matrix_copy.pointer = _lib.parasail_matrix_copy(self.pointer)
+        return matrix_copy
 
     def __setitem__(self, key, value):
         if type(key) is list or type(key) is tuple:
