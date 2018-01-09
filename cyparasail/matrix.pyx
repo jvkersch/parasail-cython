@@ -6,12 +6,6 @@ import numpy as np
 from .util import B, D
 
 
-def parasail_version():
-    cdef int major, minor, patch
-    _lib.parasail_version(&major, &minor, &patch)
-    return (major, minor, patch)
-
-
 cdef class Matrix:
 
     def __dealloc__(self):

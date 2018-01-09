@@ -1,6 +1,7 @@
 # Matrix classes
 
-from ._parasail_base import parasail_version, Matrix  # noqa
+from .support import parasail_version  # noqa
+from .matrix import Matrix  # noqa
 
 # TODO Lazily insert matrices into namespace.
 _score_matrix_names = [
