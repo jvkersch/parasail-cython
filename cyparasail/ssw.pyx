@@ -1,9 +1,8 @@
 cimport numpy as cnp
 cimport _parasail as _lib
+from matrix cimport Matrix
 
 import numpy as np
-
-from _parasail_base cimport Matrix
 
 from .util import B
 
