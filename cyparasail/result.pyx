@@ -1,5 +1,5 @@
 cimport _parasail as _lib
-from _cigar cimport Cigar
+from cigar cimport Cigar
 
 import numpy as np
 

@@ -3,7 +3,7 @@
 
 from _parasail cimport parasail_result, parasail_matrix
 from matrix cimport Matrix
-from _result cimport Result
+from result cimport Result
 from .util import B
 
 cdef extern from "parasail.h":
