@@ -7148,3 +7148,127 @@ def parasail_sw_stats_rowcol_diag_sat(s1, s2, open_, extend, matrix):
         return wrapped_result
 
 
+from _parasail cimport parasail_profile_t
+
+cdef extern from "parasail.h":
+
+    parasail_profile_t* _c_parasail_profile_create_sse_128_8 "parasail_profile_create_sse_128_8"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_sse_128_16 "parasail_profile_create_sse_128_16"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_sse_128_32 "parasail_profile_create_sse_128_32"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_sse_128_64 "parasail_profile_create_sse_128_64"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_sse_128_sat "parasail_profile_create_sse_128_sat"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_avx_256_8 "parasail_profile_create_avx_256_8"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_avx_256_16 "parasail_profile_create_avx_256_16"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_avx_256_32 "parasail_profile_create_avx_256_32"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_avx_256_64 "parasail_profile_create_avx_256_64"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_avx_256_sat "parasail_profile_create_avx_256_sat"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_altivec_128_8 "parasail_profile_create_altivec_128_8"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_altivec_128_16 "parasail_profile_create_altivec_128_16"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_altivec_128_32 "parasail_profile_create_altivec_128_32"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_altivec_128_64 "parasail_profile_create_altivec_128_64"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_altivec_128_sat "parasail_profile_create_altivec_128_sat"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_sse_128_8 "parasail_profile_create_stats_sse_128_8"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_sse_128_16 "parasail_profile_create_stats_sse_128_16"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_sse_128_32 "parasail_profile_create_stats_sse_128_32"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_sse_128_64 "parasail_profile_create_stats_sse_128_64"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_sse_128_sat "parasail_profile_create_stats_sse_128_sat"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_avx_256_8 "parasail_profile_create_stats_avx_256_8"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_avx_256_16 "parasail_profile_create_stats_avx_256_16"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_avx_256_32 "parasail_profile_create_stats_avx_256_32"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_avx_256_64 "parasail_profile_create_stats_avx_256_64"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_avx_256_sat "parasail_profile_create_stats_avx_256_sat"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_altivec_128_8 "parasail_profile_create_stats_altivec_128_8"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_altivec_128_16 "parasail_profile_create_stats_altivec_128_16"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_altivec_128_32 "parasail_profile_create_stats_altivec_128_32"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_altivec_128_64 "parasail_profile_create_stats_altivec_128_64"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+
+    parasail_profile_t* _c_parasail_profile_create_stats_altivec_128_sat "parasail_profile_create_stats_altivec_128_sat"(
+        const char * const s1, const int s1Len,
+        const parasail_matrix* matrix)
+

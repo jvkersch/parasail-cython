@@ -3,6 +3,9 @@ cimport numpy as cnp
 
 cdef extern from "parasail.h":
 
+    ctypedef struct parasail_profile_t:
+        pass
+
     struct parasail_result:
         # alignment score
         int score

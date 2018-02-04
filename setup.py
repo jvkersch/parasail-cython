@@ -10,8 +10,8 @@ from Cython.Build import cythonize
 import numpy
 
 
-PARASAIL_INCLUDE = os.environ['PARASAIL_INCLUDE']
-PARASAIL_LIB = os.environ['PARASAIL_LIB']
+PARASAIL_INCLUDE = os.environ.get('PARASAIL_INCLUDE', '/usr/local/include')
+PARASAIL_LIB = os.environ.get('PARASAIL_LIB', '/usr/local/lib')
 
 
 def extension(name, sources):
