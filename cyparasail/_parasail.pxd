@@ -3,6 +3,9 @@ cimport numpy as cnp
 
 cdef extern from "parasail.h":
 
+    ctypedef struct parasail_profile_t:
+        pass
+
     struct parasail_result:
         # alignment score
         int score
@@ -97,9 +100,9 @@ cdef extern from "parasail.h":
     #                        CIGAR operation and length
     # @return                length of CIGAR operation
     cnp.uint32_t parasail_cigar_decode_len(cnp.uint32_t cigar_int)
-    
+
     void parasail_cigar_free(parasail_cigar_ *cigar)
-    
+
     # The following functions help access result attributes.
     int parasail_result_is_saturated(const parasail_result * const result)
     int parasail_result_is_stats(const parasail_result * const result)
@@ -124,3 +127,28 @@ cdef extern from "parasail.h":
     int* parasail_result_get_matches_col(const parasail_result * const result)
     int* parasail_result_get_similar_col(const parasail_result * const result)
     int* parasail_result_get_length_col(const parasail_result * const result)
+
+    # Profile-related functions
+    void parasail_profile_free(parasail_profile_t *profile)
+
+    ctypedef parasail_result* parasail_pfunction_t(
+        parasail_profile_t * profile,
+        char * s2, int s2Len,
+        int open, int gap)
+
+    ctypedef parasail_profile_t* parasail_pcreator_t(
+        char * s1, int s1Len,
+        parasail_matrix *matrix)
+
+    parasail_pcreator_t * parasail_lookup_pcreator(char *funcname)
+
+    parasail_pfunction_t * parasail_lookup_pfunction(char *funcname)
+
+    # Align-related
+    ctypedef parasail_result* parasail_function_t(
+        char * s1, int s1Len,
+        char * s2, int s2Len,
+        int open, int gap,
+        parasail_matrix *matrix)
+
+    parasail_function_t * parasail_lookup_function(char *funcname)

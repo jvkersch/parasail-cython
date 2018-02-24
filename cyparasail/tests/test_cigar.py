@@ -1,9 +1,9 @@
 import unittest
 
-import numpy as np
 import numpy.testing as nptest
 
 import cyparasail as parasail
+from cyparasail.align import align
 
 
 class TestCigar(unittest.TestCase):
@@ -11,7 +11,8 @@ class TestCigar(unittest.TestCase):
     def test_cigar(self):
         s1 = "QQEGIL"
         s2 = "QQQERGII"
-        res = parasail.parasail_nw_trace(s1, s2, 10, 1, parasail.pam10)
+        res = align(s1, s2, 10, 1, matrix=parasail.pam10, method='nw',
+                    trace=True)
         cigar = res.cigar
 
         nptest.assert_array_equal(cigar.seq, [39, 24, 34, 39, 24])
