@@ -143,3 +143,12 @@ cdef extern from "parasail.h":
     parasail_pcreator_t * parasail_lookup_pcreator(char *funcname)
 
     parasail_pfunction_t * parasail_lookup_pfunction(char *funcname)
+
+    # Align-related
+    ctypedef parasail_result* parasail_function_t(
+        char * s1, int s1Len,
+        char * s2, int s2Len,
+        int open, int gap,
+        parasail_matrix *matrix)
+
+    parasail_function_t * parasail_lookup_function(char *funcname)

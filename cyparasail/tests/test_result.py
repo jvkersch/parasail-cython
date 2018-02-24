@@ -4,6 +4,7 @@ import numpy as np
 import numpy.testing as nptest
 
 import cyparasail as parasail
+from cyparasail.align import align
 
 
 class TestResult(unittest.TestCase):
@@ -11,7 +12,7 @@ class TestResult(unittest.TestCase):
     def test_assert_nostats(self):
         s1 = "QQEGIL"
         s2 = "QQQERGII"
-        res = parasail.parasail_nw(s1, s2, 10, 1, parasail.pam10)
+        res = align(s1, s2, 10, 1, matrix=parasail.pam10, method='nw')
 
         self.assertFalse(res.saturated)
         self.assertEqual(res.score, 18)
@@ -25,10 +26,11 @@ class TestResult(unittest.TestCase):
         with self.assertRaises(AttributeError):
             res.length
 
-    def test_assert_nostats(self):
+    def test_assert_stats(self):
         s1 = "QQEGIL"
         s2 = "QQQERGII"
-        res = parasail.parasail_nw_stats(s1, s2, 10, 1, parasail.pam10)
+        res = align(s1, s2, 10, 1, method='nw',
+                    matrix=parasail.pam10, stats=True)
 
         self.assertFalse(res.saturated)
         self.assertEqual(res.score, 18)
@@ -41,12 +43,15 @@ class TestResult(unittest.TestCase):
     def test_table(self):
         s1 = "QQEGIL"
         s2 = "QQQERGII"
-        res = parasail.parasail_nw_table(s1, s2, 10, 1, parasail.pam10)
+        res = align(s1, s2, 10, 1,
+                    matrix=parasail.pam10,
+                    method='nw',
+                    table=True)
 
         nptest.assert_array_equal(
             res.score_table, np.array(
                 [[9, -1, -2, -3, -4, -5, -6, -7],
-                 [-1, 18,  8 , 7,  6,  5,  4,  3],
+                 [-1, 18,  8,  7,  6,  5,  4,  3],
                  [-2,  8, 17, 16,  6,  5,  4,  3],
                  [-3,  7,  7, 10,  3, 13,  3,  2],
                  [-4,  6,  6,  5,  2,  3, 22, 12],
@@ -55,7 +60,8 @@ class TestResult(unittest.TestCase):
     def test_stats_table(self):
         s1 = "QQEGIL"
         s2 = "QQQERGII"
-        res = parasail.parasail_nw_stats_table(s1, s2, 10, 1, parasail.pam10)
+        res = align(s1, s2, 10, 1, method='nw', stats=True,
+                    table=True, matrix=parasail.pam10)
 
         nptest.assert_array_equal(
             res.matches_table, np.array(
@@ -87,7 +93,8 @@ class TestResult(unittest.TestCase):
     def test_stats_rowcol(self):
         s1 = "QQEGIL"
         s2 = "QQQERGII"
-        res = parasail.parasail_nw_stats_rowcol(s1, s2, 10, 1, parasail.pam10)
+        res = align(s1, s2, 10, 1, method='nw', stats=True,
+                    rowcol=True, matrix=parasail.pam10)
 
         nptest.assert_array_equal(res.score_row, [-5, 5, 5, 4, -6, 2, 12, 18])
         nptest.assert_array_equal(res.matches_row, [1, 2, 2, 3, 2, 3, 4, 4])
@@ -101,6 +108,8 @@ class TestResult(unittest.TestCase):
     def test_cigar(self):
         s1 = "QQEGIL"
         s2 = "QQQERGII"
-        res = parasail.parasail_nw_trace(s1, s2, 10, 1, parasail.pam10)
+        res = align(
+            s1, s2, 10, 1, method='nw', matrix=parasail.pam10, trace=True
+        )
 
         self.assertIsNotNone(res.cigar)
